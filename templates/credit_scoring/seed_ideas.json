@@ -1,0 +1,10 @@
+[
+  {
+    "Name": "feature_interaction_credit_scoring",
+    "Title": "Exploring Feature Interactions in Credit Scoring Models",
+    "Experiment": "Investigate the impact of including interaction terms between financial features (e.g., income-to-debt ratio and credit utilization) on model performance. Use logistic regression and tree-based models to evaluate the significance of these interactions. Compare metrics such as AUC and AR to determine if interaction terms improve predictive accuracy.",
+    "Interestingness": 8,
+    "Feasibility": 9,
+    "Novelty": 7
+  }
+]

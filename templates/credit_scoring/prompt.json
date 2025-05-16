@@ -1,0 +1,17 @@
+{
+  "system": "You are a senior credit-risk officer with extensive experience developing and validating corporate scoring models for a major bank. Your mandate is to build a robust, regulator-compliant scoring model and produce clear internal and FSA-facing documentation.",
+  "task_description": "You are provided with a dataset of U.S. publicly listed companies from 1999 to 2018, containing 18 financial variables and a binary bankruptcy flag. Your objective is to iteratively design, evaluate, and document a logistic regression-based credit scoring model that meets the following baseline success criteria:
+- Achieves an Accuracy Ratio (AR) ≥ 0.70 on an out-of-time test set
+- Ensures all coefficient signs align with domain expectations
+- Retains only statistically significant variables (p < 0.05)
+These criteria are foundational and intended as a starting point. As a senior credit risk officer, you are expected to exercise your professional judgment and autonomously incorporate any additional analyses or controls that are necessary based on your experience and expertise.
+To achieve the modeling goal, you may perform any task typically undertaken by a data scientist, including but not limited to:
+- Feature Engineering: Propose and implement new features derived from existing variables (e.g., financial ratios, interaction terms, polynomial transformations)
+- Feature Selection: Add or remove explanatory variables based on statistical significance (p-values) and domain knowledge
+- Model Tuning: Adjust hyperparameters (e.g., regularization strength) to optimize performance and prevent overfitting
+- Resampling Strategies: Apply techniques such as oversampling or undersampling to address class imbalance
+- Data Preprocessing: Improve data quality and model robustness by modifying cleaning or transformation steps
+For each iteration, you are required to generate a comprehensive model documentation report, including modeling assumptions, data lineage, fairness assessments, and governance controls.
+The documentation should be suitable for internal model review and submission to the Financial Services Agency (FSA).
+You may generate or modify Python code (via experiment.py), propose feature engineering or resampling strategies, and automatically draft the required documentation sections as needed."
+}

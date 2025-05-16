@@ -1,0 +1,89 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{titletoc}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{cleveref}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{fancyhdr}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\graphicspath{{../}} % To reference your generated figures, see below.
+\begin{filecontents}{references.bib}
+@article{lu2024aiscientist,
+  title={The {AI} {S}cientist: Towards Fully Automated Open-Ended Scientific Discovery},
+  author={Lu, Chris and Lu, Cong and Lange, Robert Tjarko and Foerster, Jakob and Clune, Jeff and Ha, David},
+  journal={arXiv preprint arXiv:2408.06292},
+  year={2024}
+}
+\end{filecontents}
+
+% ヘッダーとフッターの設定
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Model Documentation}
+\fancyhead[R]{\today}
+\fancyfoot[C]{\thepage}
+
+\begin{document}
+
+\title{MODEL DOCUMENTATION}
+\author{AI Scientist}
+\date{\today}
+\maketitle
+
+\section*{Cover Page}
+\begin{itemize}
+    \item \textbf{Model Name:} [ModelName]
+    \item \textbf{Version:} 1.0
+    \item \textbf{Date of Issue:} \today
+    \item \textbf{Author(s):} [AI Scientist]
+    \item \textbf{Classification:} Confidential
+\end{itemize}
+
+\tableofcontents
+\clearpage
+
+\section{Model Overview}
+[Model Overview Content]
+
+\section{Model Development and Implementation}
+[Model Development and Implementation Content]
+
+\section{Model Validation and Performance}
+[Model Validation and Performance Content]
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{model_performance_run_0.png}
+    \caption{Cumulative default ratio for logistic regression and random forest models.}
+    \label{fig:model_performance}
+\end{figure}
+
+\section{Model Governance}
+[Model Governance Content]
+
+\section{Risk Assessment}
+[Risk Assessment Content]
+
+\section{Conclusion}
+[Conclusion Content]
+
+\section{Appendices}
+[Appendices Content]
+
+\end{document}
