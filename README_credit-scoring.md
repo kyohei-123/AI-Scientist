@@ -26,7 +26,7 @@ Parse reference manuals to markdown which to be used by AI Scientist as the refe
 
 ```bash
 cd data/references
-python prepare.py
+python prepare.py --model gemini/gemini-2.0-flash --file ./pdf_02.pdf
 ```
 
 # Dry run to create run_0
