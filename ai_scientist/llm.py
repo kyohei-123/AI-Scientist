@@ -4,8 +4,8 @@ import re
 
 import anthropic
 import backoff
-import openai
 import google.generativeai as genai
+import openai
 from google.generativeai.types import GenerationConfig
 
 MAX_NUM_TOKENS = 4096
@@ -55,6 +55,7 @@ AVAILABLE_LLMS = [
     "gemini-1.5-flash",
     "gemini-1.5-pro",
     "gemini-2.0-flash",
+    "gemini/gemini-2.0-flash",
     "gemini-2.0-flash-lite",
     "gemini-2.0-flash-thinking-exp-01-21",
     "gemini-2.5-pro-preview-03-25",
@@ -65,19 +66,19 @@ AVAILABLE_LLMS = [
 # Get N responses from a single message, used for ensembling.
 @backoff.on_exception(backoff.expo, (openai.RateLimitError, openai.APITimeoutError))
 def get_batch_responses_from_llm(
-        msg,
-        client,
-        model,
-        system_message,
-        print_debug=False,
-        msg_history=None,
-        temperature=0.75,
-        n_responses=1,
+    msg,
+    client,
+    model,
+    system_message,
+    print_debug=False,
+    msg_history=None,
+    temperature=0.75,
+    n_responses=1,
 ):
     if msg_history is None:
         msg_history = []
 
-    if 'gpt' in model:
+    if "gpt" in model:
         new_msg_history = msg_history + [{"role": "user", "content": msg}]
         response = client.chat.completions.create(
             model=model,
@@ -92,9 +93,7 @@ def get_batch_responses_from_llm(
             seed=0,
         )
         content = [r.message.content for r in response.choices]
-        new_msg_history = [
-            new_msg_history + [{"role": "assistant", "content": c}] for c in content
-        ]
+        new_msg_history = [new_msg_history + [{"role": "assistant", "content": c}] for c in content]
     elif model == "llama-3-1-405b-instruct":
         new_msg_history = msg_history + [{"role": "user", "content": msg}]
         response = client.chat.completions.create(
@@ -109,9 +108,7 @@ def get_batch_responses_from_llm(
             stop=None,
         )
         content = [r.message.content for r in response.choices]
-        new_msg_history = [
-            new_msg_history + [{"role": "assistant", "content": c}] for c in content
-        ]
+        new_msg_history = [new_msg_history + [{"role": "assistant", "content": c}] for c in content]
     else:
         content, new_msg_history = [], []
         for _ in range(n_responses):
@@ -141,13 +138,13 @@ def get_batch_responses_from_llm(
 
 @backoff.on_exception(backoff.expo, (openai.RateLimitError, openai.APITimeoutError))
 def get_response_from_llm(
-        msg,
-        client,
-        model,
-        system_message,
-        print_debug=False,
-        msg_history=None,
-        temperature=0.75,
+    msg,
+    client,
+    model,
+    system_message,
+    print_debug=False,
+    msg_history=None,
+    temperature=0.75,
 ):
     if msg_history is None:
         msg_history = []
@@ -183,7 +180,7 @@ def get_response_from_llm(
                 ],
             }
         ]
-    elif 'gpt' in model:
+    elif "gpt" in model:
         new_msg_history = msg_history + [{"role": "user", "content": msg}]
         response = client.chat.completions.create(
             model=model,
@@ -326,26 +323,26 @@ def create_client(model):
         client_model = model.split("/")[-1]
         print(f"Using Vertex AI with model {client_model}.")
         return anthropic.AnthropicVertex(), client_model
-    elif 'gpt' in model or "o1" in model or "o3" in model:
+    elif "gpt" in model or "o1" in model or "o3" in model:
         print(f"Using OpenAI API with model {model}.")
         return openai.OpenAI(), model
     elif model in ["deepseek-chat", "deepseek-reasoner", "deepseek-coder"]:
         print(f"Using OpenAI API with {model}.")
-        return openai.OpenAI(
-            api_key=os.environ["DEEPSEEK_API_KEY"],
-            base_url="https://api.deepseek.com"
-        ), model
+        return openai.OpenAI(api_key=os.environ["DEEPSEEK_API_KEY"], base_url="https://api.deepseek.com"), model
     elif model == "llama3.1-405b":
         print(f"Using OpenAI API with {model}.")
-        return openai.OpenAI(
-            api_key=os.environ["OPENROUTER_API_KEY"],
-            base_url="https://openrouter.ai/api/v1"
-        ), "meta-llama/llama-3.1-405b-instruct"
+        return (
+            openai.OpenAI(api_key=os.environ["OPENROUTER_API_KEY"], base_url="https://openrouter.ai/api/v1"),
+            "meta-llama/llama-3.1-405b-instruct",
+        )
     elif "gemini" in model:
         print(f"Using OpenAI API with {model}.")
-        return openai.OpenAI(
-            api_key=os.environ["GEMINI_API_KEY"],
-            base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-        ), model
+        return (
+            openai.OpenAI(
+                api_key=os.environ["GEMINI_API_KEY"],
+                base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+            ),
+            model,
+        )
     else:
         raise ValueError(f"Model {model} not supported.")
